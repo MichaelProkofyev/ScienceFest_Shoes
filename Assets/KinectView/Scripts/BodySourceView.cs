@@ -5,6 +5,7 @@ using Kinect = Windows.Kinect;
 
 public class BodySourceView : MonoBehaviour 
 {
+    public float zOffset = 0;
     public GameObject shoeOverlayPrefab;
     public Material BoneMaterial;
     public BodySourceManager _BodyManager;
@@ -129,6 +130,9 @@ public class BodySourceView : MonoBehaviour
         float minY = float.MaxValue;
         float maxY = float.MinValue;
 
+        Vector3 spineBasePos = Vector3.zero;
+        Vector3 spineMidPos = Vector3.zero;
+
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             Kinect.Joint sourceJoint = body.Joints[jt];
@@ -160,23 +164,39 @@ public class BodySourceView : MonoBehaviour
                 minY = jointObj.localPosition.y;
             }
 
-            LineRenderer lr = jointObj.GetComponent<LineRenderer>();
-            if(targetJoint.HasValue)
+            if (jt == Kinect.JointType.SpineBase)
             {
-                lr.SetPosition(0, jointObj.localPosition);
-                lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
-                lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+                spineBasePos = jointObj.localPosition;
             }
-            else
+            else if (jt == Kinect.JointType.SpineMid)
             {
-                lr.enabled = false;
+                spineMidPos = jointObj.localPosition;
+            }
+
+            if (showBones)
+            {
+                LineRenderer lr = jointObj.GetComponent<LineRenderer>();
+                if(targetJoint.HasValue)
+                {
+                    lr.SetPosition(0, jointObj.localPosition);
+                    lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
+                    lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+                }
+                else
+                {
+                    lr.enabled = false;
+                }
             }
         }
 
+        //Calc rotation
+        float rotationZ = Mathf.Atan2(spineMidPos.y - spineBasePos.y, spineMidPos.x - spineBasePos.x) * 180f / Mathf.PI - 90f;
+        //print(rotation);
         var shoeOverlay = bodyObject.transform.Find("Shoe overlay");
         var shoePos = shoeOverlay.transform.localPosition;
-        shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f, (maxY + minY) / 2f, shoePos.z);
+        shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f, (maxY + minY) / 2f, shoePos.z + zOffset);
         shoeOverlay.transform.localScale = new Vector3(maxX - minX, maxY - minY, shoeOverlay.transform.localScale.z);
+        shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * 1.5f);
     }
 
     private static Color GetColorForState(Kinect.TrackingState state)
