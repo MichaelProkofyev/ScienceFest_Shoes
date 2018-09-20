@@ -10,6 +10,10 @@ public class BodySourceView : MonoBehaviour
     public Material BoneMaterial;
     public BodySourceManager _BodyManager;
     public bool showBones = false;
+
+    public Vector3 overlayScaleMultiplier = Vector3.one;
+
+    public Material[] shoeMaterials;
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     
@@ -118,6 +122,8 @@ public class BodySourceView : MonoBehaviour
         }
 
         var shoeOverlay = Instantiate(shoeOverlayPrefab, body.transform);
+        var selectedShoeMat = shoeMaterials[Random.Range(0, shoeMaterials.Length)];
+        shoeOverlay.GetComponent<Renderer>().material = selectedShoeMat;
         shoeOverlay.name = "Shoe overlay";
 
         return body;
@@ -195,7 +201,7 @@ public class BodySourceView : MonoBehaviour
         var shoeOverlay = bodyObject.transform.Find("Shoe overlay");
         var shoePos = shoeOverlay.transform.localPosition;
         shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f, (maxY + minY) / 2f, shoePos.z + zOffset);
-        shoeOverlay.transform.localScale = new Vector3(maxX - minX, maxY - minY, shoeOverlay.transform.localScale.z);
+        shoeOverlay.transform.localScale = new Vector3((maxX - minX) * overlayScaleMultiplier.x, (maxY - minY) * overlayScaleMultiplier.y, shoeOverlay.transform.localScale.z * overlayScaleMultiplier.z);
         shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * 1.5f);
     }
 
