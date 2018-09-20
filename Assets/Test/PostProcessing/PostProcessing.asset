@@ -28,16 +28,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f0df566aa67af468e366a915729f35, type: 3}
   m_Name: Pix2PixEffect
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   edgeThreshold:
     overrideState: 1
-    value: 0.081
+    value: 0.073
   edgeIntensity:
     overrideState: 1
-    value: 0.348
+    value: 0.483
   edgeOpacity:
     overrideState: 0
     value: 0
