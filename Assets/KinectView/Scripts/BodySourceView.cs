@@ -17,6 +17,7 @@ struct LastPos
 
 public class BodySourceView : MonoBehaviour 
 {
+    public Vector2 minScale = Vector2.one;
     public Vector3 offset;
     public Vector2 morphMultiplier = Vector2.one;
     public GameObject shoeOverlayPrefab;
@@ -248,7 +249,9 @@ public class BodySourceView : MonoBehaviour
         var shoeOverlay = bodyObject.transform.Find("Shoe overlay");
         var shoePos = shoeOverlay.transform.localPosition;
         shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f + +offset.x, (maxY + minY) / 2f + offset.y, shoePos.z + offset.z);
-        shoeOverlay.transform.localScale = new Vector3((maxX - minX) * overlayScaleMultiplier.x, (maxY - minY) * overlayScaleMultiplier.y, shoeOverlay.transform.localScale.z * overlayScaleMultiplier.z);
+        float shoeScaleX = Mathf.Max(minScale.x, (maxX - minX) * overlayScaleMultiplier.x);
+        float shoeScaleY = Mathf.Max(minScale.y, (maxY - minY) * overlayScaleMultiplier.y);
+        shoeOverlay.transform.localScale = new Vector3(shoeScaleX, shoeScaleY, shoeOverlay.transform.localScale.z * overlayScaleMultiplier.z);
         shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * 1.5f);
     }
 
