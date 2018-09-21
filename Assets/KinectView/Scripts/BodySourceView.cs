@@ -95,10 +95,12 @@ public class BodySourceView : MonoBehaviour
         {
             if(!trackedIds.Contains(trackingId))
             {
+                shoeOverlays[trackingId].GetComponent<ShoeController>().Die();
                 Destroy(_Bodies[trackingId]);
                 _Bodies.Remove(trackingId);
                 lastPositions.Remove(trackingId);
                 shoeOverlays.Remove(trackingId);
+
                 instancedShoeMats.Remove(trackingId);
             }
         }
@@ -118,9 +120,9 @@ public class BodySourceView : MonoBehaviour
                     lastPositions[body.TrackingId] = new LastPos(Vector3.zero, Vector3.zero);
 
                     //Create shoe overlay
-                    var shoeOverlay = Instantiate(shoeOverlayPrefab, _Bodies[body.TrackingId].transform);
-                    var selectedShoeMat = shoeMaterials[Random.Range(0, shoeMaterials.Length)];
-                    shoeOverlay.GetComponent<Renderer>().material = selectedShoeMat;
+                    var shoeOverlay = Instantiate(shoeOverlayPrefab);
+                    //var selectedShoeMat = shoeMaterials[Random.Range(0, shoeMaterials.Length)];
+                    //shoeOverlay.GetComponent<Renderer>().material = selectedShoeMat;
                     shoeOverlay.name = "Shoe overlay";
                     shoeOverlays[body.TrackingId] = shoeOverlay.transform;
                     instancedShoeMats[body.TrackingId] = shoeOverlay.GetComponent<Renderer>().material;
