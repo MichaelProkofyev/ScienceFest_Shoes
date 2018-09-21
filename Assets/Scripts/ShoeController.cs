@@ -28,7 +28,7 @@ public class ShoeController : MonoBehaviour {
         spheres.SetActive(false);
         shoeRenderer.enabled = true;
 
-        Die();
+        //Die();
     }
 	
 	void Update ()

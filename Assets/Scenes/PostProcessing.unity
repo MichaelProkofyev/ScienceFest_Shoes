@@ -152,6 +152,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114352936238891022, guid: 2f0ed67573aef8c4999404257c54e2bc,
+        type: 2}
+      propertyPath: showBones
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114352936238891022, guid: 2f0ed67573aef8c4999404257c54e2bc,
+        type: 2}
+      propertyPath: overlayScaleMultiplier.x
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f0ed67573aef8c4999404257c54e2bc, type: 2}
   m_IsPrefabAsset: 0
@@ -322,39 +332,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114437091277815906, guid: a10d8212580f3744899d4820f375792e,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114779275164882364, guid: a10d8212580f3744899d4820f375792e,
-        type: 2}
-      propertyPath: bodySourceView
-      value: 
-      objectReference: {fileID: 2010325022}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10d8212580f3744899d4820f375792e, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1835961421 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1707992925284830, guid: a10d8212580f3744899d4820f375792e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1728697458}
---- !u!114 &1835961427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1835961421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b65e6065cf94c49903f56c6c0133fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectMaterial: {fileID: 2100000, guid: 102e129c5489f8b43bc5f44daa82fa90, type: 2}
---- !u!114 &2010325022 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114352936238891022, guid: 2f0ed67573aef8c4999404257c54e2bc,
-    type: 2}
-  m_PrefabInternal: {fileID: 622722899}
-  m_Script: {fileID: 11500000, guid: 8821130411451d343a1488e2a9db134e, type: 3}

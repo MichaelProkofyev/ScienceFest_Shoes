@@ -8,9 +8,10 @@
 	}
 	SubShader
 	{
-		Tags { "RenderType"="Transparent" }
+		Tags { "RenderType"="Transparent" "Queue"="Overlay" }
 		LOD 100
 
+		ZTest Always
 		ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 

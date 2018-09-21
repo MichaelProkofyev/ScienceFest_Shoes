@@ -246,7 +246,7 @@ public class BodySourceView : MonoBehaviour
         //Calc rotation
         float rotationZ = Mathf.Atan2(spineMidPos.y - spineBasePos.y, spineMidPos.x - spineBasePos.x) * 180f / Mathf.PI - 90f;
         //print(rotation);
-        var shoeOverlay = bodyObject.transform.Find("Shoe overlay");
+        var shoeOverlay = shoeOverlays[trackingid];
         var shoePos = shoeOverlay.transform.localPosition;
         shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f + +offset.x, (maxY + minY) / 2f + offset.y, shoePos.z + offset.z);
         float shoeScaleX = Mathf.Max(minScale.x, (maxX - minX) * overlayScaleMultiplier.x);
