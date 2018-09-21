@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33195336547464312}
   - component: {fileID: 23199714903856230}
   - component: {fileID: 54998369736477006}
-  - component: {fileID: 65868401018619478}
   m_Layer: 8
   m_Name: ShoeOverlayObject
   m_TagString: Untagged
@@ -100,15 +99,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
---- !u!65 &65868401018619478
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1878901484308800}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.99999994}
-  m_Center: {x: 0, y: 0, z: 0}

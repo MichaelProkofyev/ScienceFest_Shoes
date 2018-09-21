@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: oxford
-  m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 0eaf8c07b1a6f3044978040e9139be72, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -22,5 +22,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: aef631b54aeee8f4981da51d6ccd590d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 5cb18ef66932da04d923666f999fd144, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Cutoff: 0.5
+    - _OffsetMultiplier: 0
+    - _OffsetMultiplierX: 0
+    - _OffsetMultiplierY: 0
+    - _WhiteCutout: -0.16
     m_Colors: []

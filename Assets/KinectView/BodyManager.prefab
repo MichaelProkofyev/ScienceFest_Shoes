@@ -29,7 +29,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1730391614286986
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,8 +190,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8821130411451d343a1488e2a9db134e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: -6.78, z: 45.4}
+  morphMultiplier: {x: 0.1, y: 0.1}
   shoeOverlayPrefab: {fileID: 1878901484308800, guid: 6a3bf9883d79cf941a4e9a7cdbfa8159,
     type: 2}
   BoneMaterial: {fileID: 2100000, guid: f2ea145c63353784985576f08398a815, type: 2}
   _BodyManager: {fileID: 114109600556711726}
   showBones: 0
+  overlayScaleMultiplier: {x: 2, y: 1, z: 1}
+  shoeMaterials:
+  - {fileID: 2100000, guid: d541d0a0587b0034b9a4cc5122823b15, type: 2}
+  - {fileID: 2100000, guid: 33a0d8f35f45a694a9f8f63a4ce9e1d2, type: 2}

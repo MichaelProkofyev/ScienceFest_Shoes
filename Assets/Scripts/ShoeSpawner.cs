@@ -10,10 +10,22 @@ public class ShoeSpawner : MonoBehaviour {
     public float destroyDelay = 1f;
     public float xMaxOffset = 2f;
 
+
+    public ParticleSystem particles;
+    public float particleMatChangeCycle = 1f;
     // Use this for initialization
     void Start () {
-        StartCoroutine(SpawnShoes());
+        StartCoroutine(UpdateMaterial());
 	}
+
+    IEnumerator UpdateMaterial()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(particleMatChangeCycle);
+            particles.GetComponent<Renderer>().material = bodySourceView.shoeMaterials[Random.Range(0, bodySourceView.shoeMaterials.Length)];
+        }
+    }
 
     IEnumerator SpawnShoes()
     {

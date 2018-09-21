@@ -3,20 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using Kinect = Windows.Kinect;
 
+struct LastPos
+{
+    public Vector3 lastLeftHandPos;
+    public Vector3 lastRightHandPos;
+
+    public LastPos(Vector3 lastLeftHandPos, Vector3 lastRightHandPos)
+    {
+        this.lastLeftHandPos = lastLeftHandPos;
+        this.lastRightHandPos = lastRightHandPos;
+    }
+}
+
 public class BodySourceView : MonoBehaviour 
 {
-    public float zOffset = 0;
+    public Vector3 offset;
+    public Vector2 morphMultiplier = Vector2.one;
     public GameObject shoeOverlayPrefab;
     public Material BoneMaterial;
     public BodySourceManager _BodyManager;
     public bool showBones = false;
 
     public Vector3 overlayScaleMultiplier = Vector3.one;
+    
 
     public Material[] shoeMaterials;
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
-    
+    private Dictionary<ulong, LastPos> lastPositions = new Dictionary<ulong, LastPos>();
+    private Dictionary<ulong, Transform> shoeOverlays = new Dictionary<ulong, Transform>();
+    private Dictionary<ulong, Material> instancedShoeMats = new Dictionary<ulong, Material>();
+
     private Dictionary<Kinect.JointType, Kinect.JointType> _BoneMap = new Dictionary<Kinect.JointType, Kinect.JointType>()
     {
         { Kinect.JointType.FootLeft, Kinect.JointType.AnkleLeft },
@@ -80,6 +97,9 @@ public class BodySourceView : MonoBehaviour
             {
                 Destroy(_Bodies[trackingId]);
                 _Bodies.Remove(trackingId);
+                lastPositions.Remove(trackingId);
+                shoeOverlays.Remove(trackingId);
+                instancedShoeMats.Remove(trackingId);
             }
         }
 
@@ -95,9 +115,18 @@ public class BodySourceView : MonoBehaviour
                 if(!_Bodies.ContainsKey(body.TrackingId))
                 {
                     _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
+                    lastPositions[body.TrackingId] = new LastPos(Vector3.zero, Vector3.zero);
+
+                    //Create shoe overlay
+                    var shoeOverlay = Instantiate(shoeOverlayPrefab, _Bodies[body.TrackingId].transform);
+                    var selectedShoeMat = shoeMaterials[Random.Range(0, shoeMaterials.Length)];
+                    shoeOverlay.GetComponent<Renderer>().material = selectedShoeMat;
+                    shoeOverlay.name = "Shoe overlay";
+                    shoeOverlays[body.TrackingId] = shoeOverlay.transform;
+                    instancedShoeMats[body.TrackingId] = shoeOverlay.GetComponent<Renderer>().material;
                 }
                 
-                RefreshBodyObject(body, _Bodies[body.TrackingId]);
+                RefreshBodyObject(body, _Bodies[body.TrackingId], lastPositions[body.TrackingId], body.TrackingId);
             }
         }
     }
@@ -121,15 +150,10 @@ public class BodySourceView : MonoBehaviour
             jointObj.transform.parent = body.transform;
         }
 
-        var shoeOverlay = Instantiate(shoeOverlayPrefab, body.transform);
-        var selectedShoeMat = shoeMaterials[Random.Range(0, shoeMaterials.Length)];
-        shoeOverlay.GetComponent<Renderer>().material = selectedShoeMat;
-        shoeOverlay.name = "Shoe overlay";
-
         return body;
     }
     
-    private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
+    private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject, LastPos lastPosition, ulong trackingid)
     {
         float minX = float.MaxValue;
         float maxX = float.MinValue;
@@ -138,6 +162,9 @@ public class BodySourceView : MonoBehaviour
 
         Vector3 spineBasePos = Vector3.zero;
         Vector3 spineMidPos = Vector3.zero;
+
+        float handDeltaLeft = 0;
+        float handDeltaRight = 0;
 
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
@@ -151,7 +178,7 @@ public class BodySourceView : MonoBehaviour
             
             Transform jointObj = bodyObject.transform.Find(jt.ToString());
             jointObj.localPosition = GetVector3FromJoint(sourceJoint);
-            bodyObject.transform.Find("Shoe overlay").localPosition = GetVector3FromJoint(sourceJoint);
+            shoeOverlays[trackingid].localPosition = GetVector3FromJoint(sourceJoint);
 
             if (jointObj.localPosition.x > maxX)
             {
@@ -178,6 +205,16 @@ public class BodySourceView : MonoBehaviour
             {
                 spineMidPos = jointObj.localPosition;
             }
+            else if(jt == Kinect.JointType.ShoulderLeft)
+            {
+                handDeltaLeft = Vector3.Distance(lastPosition.lastLeftHandPos, jointObj.localPosition);
+                lastPosition.lastLeftHandPos = jointObj.localPosition;
+            }
+            else if (jt == Kinect.JointType.ShoulderRight)
+            {
+                handDeltaRight = Vector3.Distance(lastPosition.lastRightHandPos, jointObj.localPosition);
+                lastPosition.lastRightHandPos = jointObj.localPosition;
+            }
 
             if (showBones)
             {
@@ -195,12 +232,20 @@ public class BodySourceView : MonoBehaviour
             }
         }
 
+        //print("HAND LEFT DELTA " + handDeltaLeft);
+        //print("HAND RIGHT DELTA " + handDeltaRight);
+
+        instancedShoeMats[trackingid].SetFloat("_OffsetMultiplierX", handDeltaLeft * morphMultiplier.x);
+        instancedShoeMats[trackingid].SetFloat("_OffsetMultiplierY", handDeltaRight * morphMultiplier.y);
+
+        lastPositions[trackingid] = lastPosition;
+
         //Calc rotation
         float rotationZ = Mathf.Atan2(spineMidPos.y - spineBasePos.y, spineMidPos.x - spineBasePos.x) * 180f / Mathf.PI - 90f;
         //print(rotation);
         var shoeOverlay = bodyObject.transform.Find("Shoe overlay");
         var shoePos = shoeOverlay.transform.localPosition;
-        shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f, (maxY + minY) / 2f, shoePos.z + zOffset);
+        shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f + +offset.x, (maxY + minY) / 2f + offset.y, shoePos.z + offset.z);
         shoeOverlay.transform.localScale = new Vector3((maxX - minX) * overlayScaleMultiplier.x, (maxY - minY) * overlayScaleMultiplier.y, shoeOverlay.transform.localScale.z * overlayScaleMultiplier.z);
         shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * 1.5f);
     }
