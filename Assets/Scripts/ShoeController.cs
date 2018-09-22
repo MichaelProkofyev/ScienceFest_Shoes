@@ -9,6 +9,7 @@ public class ShoeController : MonoBehaviour {
     public float blendSpeed = 1f;
     public Texture[] shoeTextures;
 
+    public float birthDuration = 1f;
     public float deathDuration = 1f;
     public GameObject spheres;
 
@@ -25,13 +26,22 @@ public class ShoeController : MonoBehaviour {
         shoeRenderer.material.SetTexture("_MainTex2", shoeTextures[textureIndex2]);
         shoeRenderer.material.SetFloat("_BlendValue", 0);
 
+        spheres.transform.localScale = new Vector3(.5f, .5f, spheres.transform.localScale.z);
+        spheres.SetActive(true);
+        shoeRenderer.enabled = false;
+        StartCoroutine(BirthRoutine());
+    }
+
+    IEnumerator BirthRoutine()
+    {
+        yield return new WaitForSeconds(birthDuration);
         spheres.SetActive(false);
         shoeRenderer.enabled = true;
-
-        //Die();
     }
-	
-	void Update ()
+
+
+
+    void Update ()
     {
         if (blendCooldownCurrent <= 0)
         {
@@ -63,6 +73,7 @@ public class ShoeController : MonoBehaviour {
 
     IEnumerator DieRoutine()
     {
+        spheres.transform.localScale = new Vector3(1f, 1f, spheres.transform.localScale.z);
         shoeRenderer.enabled = false;
         spheres.SetActive(true);
         yield return new WaitForSeconds(deathDuration);

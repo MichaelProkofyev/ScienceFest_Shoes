@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seed: 871
-  _frequency: 0.2
+  _frequency: 0.1
   _positionAmplitude:
     x: 0.4
     y: 0.4
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seed: 141
-  _frequency: 0.2
+  _frequency: 0.1
   _positionAmplitude:
     x: 0.4
     y: 0.4
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seed: 252
-  _frequency: 0.2
+  _frequency: 0.1
   _positionAmplitude:
     x: 0.4
     y: 0.4
@@ -427,5 +427,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ac85467cf9985e24c892f51cf46d8955, type: 3}
   - {fileID: 2800000, guid: adbc4f9d4a0f8624887d8296cc20c448, type: 3}
   - {fileID: 2800000, guid: 7c817f6e44caf8746aa044e38efa2766, type: 3}
+  birthDuration: 2
   deathDuration: 2
   spheres: {fileID: 1183169012348312}
