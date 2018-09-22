@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8821130411451d343a1488e2a9db134e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseScale: {x: 10, y: 10}
   offset: {x: 0, y: -6.78, z: 45.4}
   morphMultiplier: {x: 0.1, y: 0.1}
   shoeOverlayPrefab: {fileID: 1878901484308800, guid: 6a3bf9883d79cf941a4e9a7cdbfa8159,

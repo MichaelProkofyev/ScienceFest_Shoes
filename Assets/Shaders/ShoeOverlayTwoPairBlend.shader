@@ -54,7 +54,7 @@
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				
+				i.uv = float2(i.uv.x, -i.uv.y);
 				fixed4 t1 = tex2D(_MainTex1, i.uv) * (1 - _BlendValue);
 				fixed4 t2 = tex2D(_MainTex2, i.uv) * _BlendValue;
 				fixed4 col = t1 + t2;

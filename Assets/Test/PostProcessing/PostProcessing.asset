@@ -34,10 +34,10 @@ MonoBehaviour:
     value: 1
   edgeThreshold:
     overrideState: 1
-    value: 0.23
+    value: 0.24
   edgeIntensity:
     overrideState: 1
-    value: 0.463
+    value: 0.276
   edgeOpacity:
     overrideState: 0
     value: 0
@@ -62,10 +62,10 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.4
+    value: 0.336
   fastMode:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
 --- !u!114 &114402135747484836
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -136,16 +136,16 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.42
+    value: 0.34
   contrast:
     overrideState: 0
     value: 0
   mixerRedOutRedIn:
     overrideState: 0
-    value: 100
+    value: 130
   mixerRedOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 72
   mixerRedOutBlueIn:
     overrideState: 0
     value: 0
@@ -1417,7 +1417,7 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 0
-    value: 0
+    value: 1
   color:
     overrideState: 0
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -1426,7 +1426,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.3
+    value: 0.443
   smoothness:
     overrideState: 0
     value: 0.2
@@ -1463,10 +1463,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.5
+    value: 0.451
   size:
     overrideState: 1
-    value: 1
+    value: 0.67
   lumContrib:
     overrideState: 0
     value: 0.8
