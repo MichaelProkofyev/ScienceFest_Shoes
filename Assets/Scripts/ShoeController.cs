@@ -26,7 +26,7 @@ public class ShoeController : MonoBehaviour {
         shoeRenderer.material.SetTexture("_MainTex2", shoeTextures[textureIndex2]);
         shoeRenderer.material.SetFloat("_BlendValue", 0);
 
-        spheres.transform.localScale = new Vector3(.5f, .5f, spheres.transform.localScale.z);
+        spheres.transform.localScale = new Vector3(.25f, .25f, spheres.transform.localScale.z);
         spheres.SetActive(true);
         shoeRenderer.enabled = false;
         StartCoroutine(BirthRoutine());

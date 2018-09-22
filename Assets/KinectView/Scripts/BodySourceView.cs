@@ -24,6 +24,7 @@ public class BodySourceView : MonoBehaviour
     public Material BoneMaterial;
     public BodySourceManager _BodyManager;
     public bool showBones = false;
+    public float rotaionMultiplier = 1f;
 
     public Vector3 overlayScaleMultiplier = Vector3.one;
     
@@ -166,6 +167,9 @@ public class BodySourceView : MonoBehaviour
         Vector3 spineBasePos = Vector3.zero;
         Vector3 spineMidPos = Vector3.zero;
 
+        Vector3 shoulderPosLeft = Vector3.zero;
+        Vector3 shoulderPosRight = Vector3.zero;
+
         float handDeltaLeft = 0;
         float handDeltaRight = 0;
 
@@ -212,11 +216,13 @@ public class BodySourceView : MonoBehaviour
             {
                 handDeltaLeft = Vector3.Distance(lastPosition.lastLeftHandPos, jointObj.localPosition);
                 lastPosition.lastLeftHandPos = jointObj.localPosition;
+                shoulderPosLeft = jointObj.localPosition;
             }
             else if (jt == Kinect.JointType.ShoulderRight)
             {
                 handDeltaRight = Vector3.Distance(lastPosition.lastRightHandPos, jointObj.localPosition);
                 lastPosition.lastRightHandPos = jointObj.localPosition;
+                shoulderPosRight = jointObj.localPosition;
             }
 
             if (showBones)
@@ -244,15 +250,15 @@ public class BodySourceView : MonoBehaviour
         lastPositions[trackingid] = lastPosition;
 
         //Calc rotation
-        float rotationZ = Mathf.Atan2(spineMidPos.y - spineBasePos.y, spineMidPos.x - spineBasePos.x) * 180f / Mathf.PI - 90f;
-        //print(rotation);
+        float rotationZ = Mathf.Atan2(shoulderPosRight.y - shoulderPosLeft.y, shoulderPosRight.x - shoulderPosLeft.x) * 180f / Mathf.PI;
+        //print(rotationZ);
         var shoeOverlay = shoeOverlays[trackingid];
         var shoePos = shoeOverlay.transform.localPosition;
         shoeOverlay.transform.localPosition = new Vector3((maxX + minX) / 2f + +offset.x, (maxY + minY) / 2f + offset.y, shoePos.z + offset.z);
         float shoeScaleX = baseScale.x + (maxX - minX) * overlayScaleMultiplier.x;
         float shoeScaleY = baseScale.y + (maxY - minY) * overlayScaleMultiplier.y;
         shoeOverlay.transform.localScale = new Vector3(shoeScaleX, shoeScaleY, shoeOverlay.transform.localScale.z * overlayScaleMultiplier.z);
-        shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * 1.5f);
+        shoeOverlay.transform.localRotation = Quaternion.Euler(0, 0, rotationZ * rotaionMultiplier);
     }
 
     private static Color GetColorForState(Kinect.TrackingState state)

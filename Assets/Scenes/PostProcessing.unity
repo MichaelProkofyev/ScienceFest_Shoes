@@ -152,6 +152,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114352936238891022, guid: 2f0ed67573aef8c4999404257c54e2bc,
+        type: 2}
+      propertyPath: baseScale.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114352936238891022, guid: 2f0ed67573aef8c4999404257c54e2bc,
+        type: 2}
+      propertyPath: baseScale.y
+      value: 7.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f0ed67573aef8c4999404257c54e2bc, type: 2}
   m_IsPrefabAsset: 0
@@ -321,6 +331,47 @@ Prefab:
     - target: {fileID: 4602916420367758, guid: a10d8212580f3744899d4820f375792e, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314606493727172, guid: a10d8212580f3744899d4820f375792e, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314606493727172, guid: a10d8212580f3744899d4820f375792e, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314606493727172, guid: a10d8212580f3744899d4820f375792e, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361007278877280, guid: a10d8212580f3744899d4820f375792e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198374661513084274, guid: a10d8212580f3744899d4820f375792e,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198374661513084274, guid: a10d8212580f3744899d4820f375792e,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.minScalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199905612931496664, guid: a10d8212580f3744899d4820f375792e,
+        type: 2}
+      propertyPath: m_MinParticleSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199905612931496664, guid: a10d8212580f3744899d4820f375792e,
+        type: 2}
+      propertyPath: m_MaxParticleSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314606493727172, guid: a10d8212580f3744899d4820f375792e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10d8212580f3744899d4820f375792e, type: 2}

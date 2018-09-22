@@ -198,6 +198,7 @@ MonoBehaviour:
   BoneMaterial: {fileID: 2100000, guid: f2ea145c63353784985576f08398a815, type: 2}
   _BodyManager: {fileID: 114109600556711726}
   showBones: 0
+  rotaionMultiplier: 1.5
   overlayScaleMultiplier: {x: 2, y: 1, z: 1}
   shoeMaterials:
   - {fileID: 2100000, guid: d541d0a0587b0034b9a4cc5122823b15, type: 2}

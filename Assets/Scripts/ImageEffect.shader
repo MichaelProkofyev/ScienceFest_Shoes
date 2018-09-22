@@ -50,8 +50,8 @@
 			{
 				// sample the texture
 				fixed4 t = tex2D(_MainTex, i.uv);
-				
-				fixed4 col = t;// 1 - step(t, _ClipVal);
+				t.rgb *= step(t.rgb, _ClipVal) + fixed3(0.5, 0.5, 0.5);
+				fixed4 col = t;//1 - step(t, _ClipVal);
 
 				return col;
 			}
